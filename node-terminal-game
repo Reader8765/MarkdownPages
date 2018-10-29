@@ -1,0 +1,52 @@
+# Making a Node.js Terminal Game Base
+##### Building a smooth and synchronous interface
+---
+
+## Intro
+For the latest CodeJam challenge, the goal was to make a terminal game and I hope it's not too soon to make this tutorial. I went [way over my head](https://repl.it/@Reader8765/CodeJam4), but I learned a lot. I had to make this program completely synchronous, running one at a time, but functions were being run at the same time. This tutorial goes through solutions to these problems and comes to the best one. Let's get started!
+
+## The Problem in Depth
+Here is a basic piece of code we will be using: 
+
+    function first() {
+        alert("first");
+        function second() {
+            alert("second");
+        }
+        setTimeout(second,500);
+    }
+    function third() {
+    	alert("third");
+    }
+    first();
+    third();
+
+<http://jsfiddle.net/Reader8765/b2fk4Lpm/3/>
+
+The purpose of it is to display the first message, wait half a second, display the second message, and then display the third message. Obviously, the `third()` function isn't running at the right time. It needs to wait for the next function. There are a few ways to do this:
+
+#### `setTimeout`
+This is probably the simplest solution, yet it requires too much work to time it perfectly. Here is an implementation:
+
+    function first() {
+        alert("first");
+        function second() {
+            alert("second");
+        }
+        setTimeout(second,500);
+    }
+    function third() {
+        alert("third");
+    }
+    first();
+    setTimeout(third,501);
+    
+<http://jsfiddle.net/Reader8765/b2fk4Lpm/5/>
+    
+Third is set to run a millisecond after `second()` finishes. However, this will not work for a large program if you have hundreds of functions all based around `setTimeout()`. Everything would have be timed just right.
+
+#### Callbacks
+This is a very good solution
+    
+    
+    
